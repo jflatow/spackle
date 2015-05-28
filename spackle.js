@@ -5,12 +5,13 @@ function usage(unknown) {
 }
 
 function main(argv) {
-  var fs = require('fs')
   var browserify = require('browserify')
   var bundler = new browserify({debug: true})
   var bundled = argv._.map(bundler.add.bind(bundler))
   if (argv.sourcemapfile) {
-    return bundler.plugin('minifyify').bundle(function (err, src, map) {
+    var fs = require('fs')
+    var minifyify = require('minifyify')
+    return bundler.plugin(minifyify).bundle(function (err, src, map) {
       fs.writeFile(argv.sourcemapfile, map)
     })
   }
