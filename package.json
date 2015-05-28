@@ -1,0 +1,18 @@
+{
+  "name": "spackle",
+  "version": "0.1.0",
+  "author": "Jared Flatow",
+  "description": "A tiny command-line utility to pack JS bundles for the web",
+  "dependencies": {
+    "browserify": "latest",
+    "minifyify": "latest",
+    "minimist": "latest"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/jflatow/spackle.git"
+  },
+  "bin": {
+    "spackle": "spackle.js"
+  }
+}
