@@ -1,6 +1,7 @@
 {
   "name": "spackle",
-  "version": "0.1.0",
+  "version": "0.2.0",
+  "license": "MIT",
   "author": "Jared Flatow",
   "description": "A tiny command-line utility to pack JS bundles for the web",
   "dependencies": {
