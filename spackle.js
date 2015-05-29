@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 function usage(unknown) {
-  return 'USAGE: spackle [--help] [--sourcemapfile FILE] FILES ...'
+  return 'USAGE: spackle [--help] [--sourcemapfile FILE] [--sourcemapurl URL] FILES ...'
 }
 
 function exit(reason, code) {
@@ -16,7 +16,9 @@ function pack_js(argv) {
   if (argv.sourcemapfile) {
     var fs = require('fs')
     var minifyify = require('minifyify')
-    return bundler.plugin(minifyify).bundle(function (err, src, map) {
+    return bundler.plugin(minifyify, {
+      map: argv.sourcemapurl || argv.sourcemapfile
+    }).bundle(function (err, src, map) {
       fs.writeFile(argv.sourcemapfile, map)
     })
   }
@@ -29,6 +31,7 @@ if (require.main === module) {
     alias: {
       'h': 'help',
       's': 'sourcemapfile',
+      'S': 'sourcemapurl'
     },
     boolean: ['help', 'minify'],
     unknown: function (opt) {
