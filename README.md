@@ -19,3 +19,10 @@ Then spackle it up:
 
 Requirements get pulled in automatically thanks to browserify.
 Dead code is removed thanks to minifyify.
+
+## Also a simple tool to inline CSS
+
+In this case, just a wrapper around [inline-css](https://www.npmjs.com/package/inline-css).
+As easy as:
+
+    spackle -i stylish.html > inline.html

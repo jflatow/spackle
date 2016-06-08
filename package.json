@@ -7,9 +7,10 @@
   "dependencies": {
     "browserify": "latest",
     "minifyify": "latest",
-    "minimist": "latest"
+    "minimist": "latest",
+    "inline-css": "latest"
   },
-  "repository" : {
+  "repository": {
     "type" : "git",
     "url" : "https://github.com/jflatow/spackle.git"
   },

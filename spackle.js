@@ -25,15 +25,31 @@ function pack_js(argv) {
   return bundler.bundle()
 }
 
+function inline_css(argv) {
+  var inlinecss = require('inline-css')
+  var fs = require('fs')
+  return new Promise(function (ok, fail) {
+    fs.readFile(argv._[0], function (err, data) {
+      if (err)
+        return fail(err)
+      return ok(data)
+    })
+  }).then(function (html) {
+    return inlinecss(html, {url: argv.inlinecssurl || 'file:///'})
+  })
+}
+
 if (require.main === module) {
   var unknown;
   var spec = {
     alias: {
       'h': 'help',
+      'i': 'inlinecss',
+      'I': 'inlinecssurl',
       's': 'sourcemapfile',
       'S': 'sourcemapurl'
     },
-    boolean: ['help', 'minify'],
+    boolean: ['help', 'inlinecss', 'minify'],
     unknown: function (opt) {
       if (opt[0] == '-') {
         unknown = opt
@@ -51,6 +67,12 @@ if (require.main === module) {
     exit(usage(unknown), 1)
   } else if (argv._.length < 1) {
     exit('Not enough arguments', 1)
+  } else if (argv.inlinecss) {
+    inline_css(argv).then(function (html) {
+      process.stdout.write(html)
+    }, function (err) {
+      exit('Failed to inline CSS: ' + err, 1)
+    })
   } else {
     var ext = path.extname(argv._[0])
     switch (ext) {
